@@ -38,5 +38,20 @@ def load_data(data_url: str)-> pd.DataFrame:
     except pd.errors.ParseError as e:
         logger.error('Failed to parse the csv file %s',e)
         raise  
+        
+def save_data(train_data:pd.DataFrame , test_data: pd.DataFrame, data_path: str)->None:
+    try:
+        raw_data_path =os.path(data_path,'raw')
+        os.makedirs(raw_data_path,exit_ok=True)
+        train_data.to_csv(os.path.join(raw_data_path, "train.csv"),index=False);
+        test.data.to.csv(os.path.join(raw_data_path, "test.csv"),index=False);
+        logger.debug('Train and test data saved to %s', raw_data_path)
     except Exception as e:
-        logger.error('unexcepted error while loading the data %s',e)
+        logger.error('Unexpected error occurred while saving the data: %s',e)
+        raise
+    
+
+def main():
+    try:
+        test_size = 0.2
+        data_path =''
